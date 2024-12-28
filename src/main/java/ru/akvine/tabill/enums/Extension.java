@@ -7,7 +7,9 @@ import ru.akvine.tabill.exceptions.FileExtensionNotSupportedException;
 @Getter
 @AllArgsConstructor
 public enum Extension {
-    CSV("csv");
+    CSV("csv"),
+    XSLX("xlsx"),
+    XLS("xls");
 
     private final String value;
 
