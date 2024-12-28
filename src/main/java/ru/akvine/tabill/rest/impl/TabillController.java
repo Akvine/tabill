@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ru.akvine.tabill.rest.TabillControllerMeta;
 import ru.akvine.tabill.rest.converter.TabillConverter;
+import ru.akvine.tabill.rest.validators.TabillValidator;
 import ru.akvine.tabill.services.ConvertService;
 import ru.akvine.tabill.services.dto.ConvertParams;
 
@@ -14,6 +15,7 @@ import ru.akvine.tabill.services.dto.ConvertParams;
 @RequiredArgsConstructor
 public class TabillController implements TabillControllerMeta {
     private final TabillConverter tabillConverter;
+    private final TabillValidator tabillValidator;
     private final ConvertService convertService;
 
     @Override
@@ -21,6 +23,7 @@ public class TabillController implements TabillControllerMeta {
                                      @RequestParam("tableName") String tableName,
                                      @RequestParam(value = "separator", required = false) String separator,
                                      @RequestParam(value = "skipLinesCount", required = false) Integer skipLinesCount) {
+        tabillValidator.verifyRequestParams(file);
         ConvertParams params = tabillConverter.convertParams(tableName, separator, skipLinesCount);
         byte[] sqlFile = convertService.convert(file, params);
         return tabillConverter.convertToResponse(sqlFile);

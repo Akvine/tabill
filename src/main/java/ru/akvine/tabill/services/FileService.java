@@ -7,4 +7,6 @@ import java.io.InputStream;
 public interface FileService {
 
     InputStream getInputStream(MultipartFile file);
+
+    byte[] getBytes(MultipartFile file);
 }

@@ -24,4 +24,18 @@ public class FileServiceImpl implements FileService {
             throw new ExtractInputStreamException(errorMessage);
         }
     }
+
+    @Override
+    public byte[] getBytes(MultipartFile file) {
+        Asserts.isNotNull(file, "file is null");
+
+        try {
+            return file.getBytes();
+        } catch (IOException exception) {
+            String errorMessage = String.format(
+                    "Error while get bytes from multipart file = [%s]",
+                    exception.getMessage());
+            throw new ExtractInputStreamException(errorMessage);
+        }
+    }
 }
