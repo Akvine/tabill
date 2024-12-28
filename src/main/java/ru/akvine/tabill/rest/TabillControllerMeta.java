@@ -11,6 +11,7 @@ public interface TabillControllerMeta {
     @GetMapping(value = "/convert")
     ResponseEntity<?> convert(@RequestParam("file") MultipartFile file,
                               @RequestParam("tableName") String tableName,
-                              @RequestParam(value = "separator", required = false) String separator);
+                              @RequestParam(value = "separator", required = false) String separator,
+                              @RequestParam(value = "skipLinesCount", required = false) Integer skipLinesCount);
 
 }

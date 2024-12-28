@@ -19,15 +19,16 @@ public class CsvConverter extends AbstractConverter {
         StringBuilder sb = new StringBuilder();
 
         String line;
-        boolean firstLineSkipped = false;
+        int skipLinesCount = params.getSkipLinesCount();
+        int skipped = 0;
 
         String separator = params.getSeparator();
         String tableName = params.getTableName();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             while ((line = reader.readLine()) != null) {
-                if (!firstLineSkipped) {
-                    firstLineSkipped = true;
+                if (skipped < skipLinesCount) {
+                    skipped += 1;
                 } else {
                     String[] valuesFromCsv = line.split(separator);
                     sb

@@ -18,13 +18,10 @@ public class ConvertServiceImpl implements ConvertService {
 
     @Override
     public byte[] convert(MultipartFile file,
-                          String tableName,
-                          String separator) {
+                          ConvertParams params) {
         String extension = FilenameUtils.getExtension(file
                 .getOriginalFilename());
         Extension fromString = Extension.from(extension);
-        ConvertParams params = new ConvertParams(tableName, separator);
-
         return convertersManager
                 .getByExtension(fromString)
                 .convert(

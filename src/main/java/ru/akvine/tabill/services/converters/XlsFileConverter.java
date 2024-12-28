@@ -31,13 +31,19 @@ public class XlsFileConverter extends AbstractConverter {
         StringBuilder sb = new StringBuilder();
 
         String tableName = params.getTableName();
+        int skipLinesCount = params.getSkipLinesCount();
+        int skipped = 0;
 
         try (Workbook workbook = WorkbookFactory.create(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
 
             for (Row row : sheet) {
-                List<String> valuesFromExcel = new ArrayList<>();
+                if (skipped < skipLinesCount) {
+                    skipped += 1;
+                    continue;
+                }
 
+                List<String> valuesFromExcel = new ArrayList<>();
                 for (Cell cell : row) {
                     String valueFromCell = cellTypeConvertersManager
                             .getByExtension(cell.getCellType())

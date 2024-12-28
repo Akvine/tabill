@@ -12,4 +12,5 @@ import lombok.experimental.Accessors;
 public class ConvertParams {
     private String tableName;
     private String separator;
+    private int skipLinesCount;
 }

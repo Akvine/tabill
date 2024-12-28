@@ -12,16 +12,8 @@ public class StringHelper {
     }
 
     public String removeLastSymbol(String value, int symbolsAtEnd) {
-        if (StringUtils.isBlank(value)) {
-            throw new IllegalArgumentException("Remove last symbol: Value is blank");
-        }
-
-        if (symbolsAtEnd > value.length()) {
-            String errorMessage = String.format(
-                    "Symbols at end count = [%s] to delete can't be more than value length = [%s]",
-                    symbolsAtEnd, value.length()
-            );
-            throw new IllegalArgumentException(errorMessage);
+        if (StringUtils.isBlank(value) || symbolsAtEnd > value.length()) {
+            return value;
         }
 
         return value.substring(0, value.length() - symbolsAtEnd);
